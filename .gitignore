@@ -97,3 +97,20 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+/[Cc]ache/
+/[Bb]uilds/
+/[Bb]uild/
+*.exe
+*.zip
+*.tar.gz
+/[Pp]ackages/com.unity.package-manager/*
+/[Aa]ssets/**/[Ll]ightmap*
+/[Aa]ssets/**/[Ll]ightingData.asset
+/[Aa]ssets/**/[Rr]eflectionProbe*
+
+/[Aa]ssets/Plugins/Android/*
+*.keystore
+
+
+
