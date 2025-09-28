@@ -1,3 +1,7 @@
+# ================================
+# Unity .gitignore (comprehensive)
+# ================================
+
 # --- Unity cache & build artifacts (recursive) ---
 **/[Ll]ibrary/
 **/[Tt]emp/
@@ -9,8 +13,9 @@
 **/*.log
 **/.vs/
 **/.gradle/
+**/.idea/
 
-# Unity / IDE files
+# --- IDE / project files ---
 ExportedObj/
 .consulo/
 *.csproj
@@ -27,17 +32,18 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+*.DotSettings.user
 
-# Unity-generated meta for pdb/md
+# --- Unity-generated meta for pdb/md ---
 *.pidb.meta
 *.pdb.meta
 *.mdb.meta
 
-# Crashes / diagnostics
+# --- Crash / diagnostics ---
 sysinfo.txt
 mono_crash.*
 
-# Builds
+# --- Build artifacts ---
 *.apk
 *.aab
 *.unitypackage
@@ -47,25 +53,40 @@ mono_crash.*
 *.zip
 *.tar.gz
 
-# Addressables (defaults)
+# --- Addressables (defaults) ---
 **/ServerData
 **/[Aa]ssets/StreamingAssets/aa*
 **/[Aa]ssets/AddressableAssetsData/link.xml*
 **/[Aa]ssets/Addressables_Temp*
 **/[Aa]ssets/AddressableAssetsData/*/*.bin*
 
-# Visual Scripting auto-gen
+# --- Visual Scripting auto-gen ---
 **/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db
 **/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db.meta
 **/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers
 **/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers.meta
 
-# Playmode test scenes
+# --- Playmode test scenes ---
 **/[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 
-# Optional extras (safe & useful)
+# --- Optional extras (safe & useful) ---
 **/[Pp]ackages/com.unity.package-manager/*
 *.blend1
 *.blend1.meta
 **/[Mm]emoryCaptures/
 **/[Rr]ecordings/
+
+# --- Lightmaps & baked GI cache (can be regenerated) ---
+**/[Ll]ightmapSnapshot*
+**/[Ll]ightmap-*
+**/[Ll]ightingData.asset
+**/[Rr]eflectionProbe*
+
+# --- Android / XR specific ---
+*.keystore
+*.jks
+
+# --- OS-specific files ---
+.DS_Store
+Thumbs.db
+desktop.ini
