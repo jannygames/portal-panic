@@ -1,0 +1,5 @@
+C:/Users/taura/OneDrive/Documents/KTU/Semestras 7/Virtualiosios realybes technologijos/portal-panic/Portal Panic/.utmp/RelWithDebInfo/1q143s28/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/taura/OneDrive/Documents/KTU/Semestras 7/Virtualiosios realybes technologijos/portal-panic/Portal Panic/.utmp/RelWithDebInfo/1q143s28/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/Users/taura/OneDrive/Documents/KTU/Semestras 7/Virtualiosios realybes technologijos/portal-panic/Portal Panic/.utmp/RelWithDebInfo/1q143s28/arm64-v8a/GameActivity/CMakeFiles/game.dir
+C:/Users/taura/OneDrive/Documents/KTU/Semestras 7/Virtualiosios realybes technologijos/portal-panic/Portal Panic/.utmp/RelWithDebInfo/1q143s28/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+C:/Users/taura/OneDrive/Documents/KTU/Semestras 7/Virtualiosios realybes technologijos/portal-panic/Portal Panic/.utmp/RelWithDebInfo/1q143s28/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
