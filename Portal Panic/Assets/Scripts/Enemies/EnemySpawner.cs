@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 [System.Serializable]
 public class EnemySpawnData
@@ -23,6 +24,9 @@ public class EnemySpawner : MonoBehaviour
     
     [Header("Spawn Settings")]
     [SerializeField] private float spawnRadius = 0f;
+
+    [Header("HUD")]
+    [SerializeField] private HUDController hudController; // Reference to the HUDController
 
     private int currentWave = 1;
     private int enemiesToSpawn;
@@ -48,6 +52,12 @@ public class EnemySpawner : MonoBehaviour
     void StartWave()
     {
         if (isSpawning) return;
+
+        // Update the round text using HUDController
+        if (hudController != null)
+        {
+            hudController.UpdateHUDText($"Round {currentWave}");
+        }
 
         // Calculate enemies for this wave
         enemiesToSpawn = Mathf.RoundToInt(initialEnemiesPerWave * Mathf.Pow(enemyMultiplier, currentWave - 1));
