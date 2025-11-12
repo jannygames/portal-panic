@@ -13,13 +13,11 @@ public class EnemyAbstract : MonoBehaviour
     private Animator animator;
     private GameObject player;
 
-    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
-        player = GameObject.FindGameObjectWithTag("Player");
 
         // Initialize agent if not assigned in inspector
         if (agent == null)
@@ -47,6 +45,11 @@ public class EnemyAbstract : MonoBehaviour
         }
     }
 
+    public void SetPlayer(GameObject playerObject)
+    {
+        player = playerObject;
+    }
+
     public void TakeDamage(int damage)
     {
         health -= damage;
@@ -59,5 +62,10 @@ public class EnemyAbstract : MonoBehaviour
     public void Die()
     {
         Destroy(this.gameObject);
+    }
+
+    public void TakeDamageFromGun()
+    {
+        TakeDamage(3); // Each gun hit deals 3 damage
     }
 }
