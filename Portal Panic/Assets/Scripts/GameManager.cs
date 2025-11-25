@@ -62,7 +62,13 @@ public class GameManager : MonoBehaviour
         panel.SetActive(false);
     }
 
-    public void LoadScene(string sceneName)
+	public void LoadGame(string sceneName)
+	{
+		Debug.Log("LoadScene called with: " + sceneName);
+		SceneManager.LoadScene(sceneName);
+	}
+
+	public void LoadScene(string sceneName)
     {
         Debug.Log("LoadScene called with: " + sceneName);
         SceneManager.LoadScene(sceneName);
@@ -87,26 +93,24 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Open the settings panel
     /// </summary>
-    public void OpenSettingsPanel()
+    /*public void OpenSettingsPanel()
     {
         if (settingsPanel != null)
         {
             settingsPanel.SetActive(true);
         }
-    }
+    }*/
 
     /// <summary>
     /// Close the settings panel
     /// </summary>
-    public void CloseSettingsPanel()
+    /*public void CloseSettingsPanel()
     {
         if (settingsPanel != null)
         {
             settingsPanel.SetActive(false);
         }
-    }
-
-    
+    }*/
 
     public void DebugLog(string message)
     {
