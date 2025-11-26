@@ -52,15 +52,31 @@ public class EnemyAbstract : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        int healthBefore = health;
         health -= damage;
+        
+        // Clamp health to minimum 0 (shouldn't be negative)
+        if (health < 0)
+        {
+            health = 0;
+        }
+        
+        Debug.Log($"[EnemyAbstract] {gameObject.name}: Taking {damage} damage. Health: {healthBefore} → {health}");
+        
         if (health <= 0)
         {
+            Debug.Log($"[EnemyAbstract] {gameObject.name}: Health reached 0 or below ({health}). Dying...");
             Die();
+        }
+        else
+        {
+            Debug.Log($"[EnemyAbstract] {gameObject.name}: Health remaining: {health}. Still alive.");
         }
     }
 
     public void Die()
     {
+        Debug.Log($"[EnemyAbstract] {gameObject.name}: Destroying enemy object.");
         Destroy(this.gameObject);
     }
 
