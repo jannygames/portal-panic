@@ -59,6 +59,12 @@ public class EnemySpawner : MonoBehaviour
             hudController.UpdateHUDText($"Round {currentWave}");
         }
 
+        // Notify the KillCounterManager of the current round
+        if (KillCounterManager.Instance != null)
+        {
+            KillCounterManager.Instance.SetCurrentRound(currentWave);
+        }
+
         // Calculate enemies for this wave
         enemiesToSpawn = Mathf.RoundToInt(initialEnemiesPerWave * Mathf.Pow(enemyMultiplier, currentWave - 1));
         Debug.Log($"Starting Wave {currentWave} - Spawning {enemiesToSpawn} enemies");

@@ -31,6 +31,7 @@ public class PlayerHealth : MonoBehaviour
     private CharacterController characterController;
     private Vector3 knockbackVelocity = Vector3.zero;
     private bool isKnockedBack = false;
+    private bool isDead = false;
 
     void Start()
     {
@@ -53,6 +54,12 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
+        // Don't process anything if player is dead
+        if (isDead)
+        {
+            return;
+        }
+
         // Update invincibility timer
         if (isInvincible)
         {
@@ -164,8 +171,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage, Vector3 enemyPosition)
     {
-        // Don't take damage if invincible
-        if (isInvincible)
+        // Don't take damage if invincible or dead
+        if (isInvincible || isDead)
         {
             return;
         }
@@ -229,8 +236,9 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Player died! Returning to MainMenu...");
-        SceneManager.LoadScene("MainMenu"); // Load the MainMenu scene
+        isDead = true;
+        Debug.Log("Player died! Loading GameOver scene...");
+        SceneManager.LoadScene("GameOver");
     }
 
     // Visualize the detection radius in the Scene view (for debugging)

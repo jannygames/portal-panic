@@ -62,12 +62,6 @@ public class GameManager : MonoBehaviour
         panel.SetActive(false);
     }
 
-	public void LoadGame(string sceneName)
-	{
-		Debug.Log("LoadScene called with: " + sceneName);
-		SceneManager.LoadScene(sceneName);
-	}
-
 	public void LoadScene(string sceneName)
     {
         Debug.Log("LoadScene called with: " + sceneName);

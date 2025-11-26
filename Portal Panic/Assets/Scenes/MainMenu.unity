@@ -528,7 +528,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: MainVR
+          m_StringArgument: Game
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 653185087}
@@ -540,7 +540,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: N
+          m_StringArgument: GameStart
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &232521226
