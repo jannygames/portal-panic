@@ -8,10 +8,14 @@ public class EnemyAbstract : MonoBehaviour
     [SerializeField] [Range(0, 50)] private int damageToPlayer = 1;
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] [Range(0, 10)] private float stoppingDistance = 1.5f;
+    [SerializeField] [Range(0, 5)] private float attackRange = 2.0f; // Range at which enemy can attack
+    [SerializeField] private float attackCooldown = 1.0f; // Time between attacks
 
     private Rigidbody rb;
     private Animator animator;
     private GameObject player;
+    private float lastAttackTime = 0f;
+    private bool isDead = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,10 +42,33 @@ public class EnemyAbstract : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Don't update if dead
+        if (isDead)
+        {
+            return;
+        }
+
         // Always follow the player if they exist
         if (player != null && agent != null && agent.enabled)
         {
             agent.SetDestination(player.transform.position);
+            
+            // Check if enemy is close enough to attack
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            
+            if (distanceToPlayer <= attackRange && Time.time >= lastAttackTime + attackCooldown)
+            {
+                TriggerAttack();
+                lastAttackTime = Time.time;
+            }
+        }
+    }
+    
+    private void TriggerAttack()
+    {
+        if (animator != null)
+        {
+            animator.SetTrigger("Attack");
         }
     }
 
@@ -66,12 +93,33 @@ public class EnemyAbstract : MonoBehaviour
 
     public void Die()
     {
+        // Don't die twice
+        if (isDead)
+        {
+            return;
+        }
+        
+        isDead = true;
+        
+        // Set death animation parameter
+        if (animator != null)
+        {
+            animator.SetBool("IsDead", true);
+        }
+        
+        // Disable agent movement
+        if (agent != null)
+        {
+            agent.enabled = false;
+        }
+        
         // Notify the kill counter manager
         if (KillCounterManager.Instance != null)
         {
             KillCounterManager.Instance.AddKill();
         }
 
-        Destroy(this.gameObject);
+        // Destroy after a short delay to allow death animation to play
+        Destroy(this.gameObject, 2.0f);
     }
 }

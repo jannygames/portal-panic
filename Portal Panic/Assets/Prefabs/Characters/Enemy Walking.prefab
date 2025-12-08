@@ -252,6 +252,8 @@ MonoBehaviour:
   damageToPlayer: 1
   agent: {fileID: 578066146013355391}
   stoppingDistance: 1.5
+  attackRange: 2
+  attackCooldown: 1
 --- !u!136 &-4936395375056402791
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -271,10 +273,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2069428
+  m_Radius: 0.2537079
   m_Height: 2.1475189
   m_Direction: 1
-  m_Center: {x: 0.010523081, y: 1.0818428, z: -0.009165764}
+  m_Center: {x: 0.010523081, y: 1.0818428, z: 0.0012683868}
 --- !u!1 &769571600673350727
 GameObject:
   m_ObjectHideFlags: 0

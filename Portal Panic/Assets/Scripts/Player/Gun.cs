@@ -25,11 +25,24 @@ public class Gun : MonoBehaviour
     [SerializeField] private LineRenderer laserLine;
     [Tooltip("Duration to show the laser line (0 = disabled)")]
     [SerializeField] private float laserDisplayDuration = 0.1f;
+    [Tooltip("Sound effect to play when shooting")]
+    [SerializeField] private AudioClip shootSound;
+    [Tooltip("Volume for the shooting sound (0-1)")]
+    [SerializeField] [Range(0, 1)] private float shootSoundVolume = 1f;
 
     private bool wasPressed = false;
+    private AudioSource audioSource;
 
     void Start()
     {
+        // Get or add AudioSource component for shooting sound
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null && shootSound != null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+        }
+
         // Validate bullet prefab
         if (bulletPrefab == null)
         {
@@ -173,6 +186,19 @@ public class Gun : MonoBehaviour
         }
         
         Debug.Log($"Gun: Fired bullet from {spawnPosition} in direction {direction}");
+
+        // Play shooting sound effect
+        if (shootSound != null)
+        {
+            if (audioSource != null)
+            {
+                audioSource.PlayOneShot(shootSound, shootSoundVolume);
+            }
+            else
+            {
+                AudioSource.PlayClipAtPoint(shootSound, spawnPosition, shootSoundVolume);
+            }
+        }
 
         // Optional: Show laser line for visual feedback
         if (laserLine != null && laserDisplayDuration > 0)

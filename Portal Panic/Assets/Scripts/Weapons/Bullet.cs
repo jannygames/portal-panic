@@ -13,6 +13,10 @@ public class Bullet : MonoBehaviour
     [Header("Effects")]
     [SerializeField] private GameObject hitEffectPrefab;
     [SerializeField] private bool destroyOnHit = true;
+    [Tooltip("Sound effect to play when bullet hits something")]
+    [SerializeField] private AudioClip impactSound;
+    [Tooltip("Volume for the impact sound (0-1)")]
+    [SerializeField] [Range(0, 1)] private float impactSoundVolume = 1f;
     
     private Rigidbody rb;
     private Vector3 direction;
@@ -168,6 +172,12 @@ public class Bullet : MonoBehaviour
             Debug.LogWarning($"Bullet: Hit object '{hitCollider.gameObject.name}' on enemy layer but EnemyAbstract component not found!");
         }
         
+        // Play impact sound effect
+        if (impactSound != null)
+        {
+            AudioSource.PlayClipAtPoint(impactSound, transform.position, impactSoundVolume);
+        }
+        
         // Spawn hit effect
         if (hitEffectPrefab != null)
         {
@@ -184,6 +194,12 @@ public class Bullet : MonoBehaviour
     {
         hasHit = true;
         Debug.Log($"Bullet: Hit obstacle '{hitCollider.gameObject.name}' (layer: {LayerMask.LayerToName(hitCollider.gameObject.layer)})");
+        
+        // Play impact sound effect
+        if (impactSound != null)
+        {
+            AudioSource.PlayClipAtPoint(impactSound, transform.position, impactSoundVolume);
+        }
         
         // Spawn hit effect
         if (hitEffectPrefab != null)
