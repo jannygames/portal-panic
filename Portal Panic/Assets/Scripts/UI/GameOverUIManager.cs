@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameOverUIManager : MonoBehaviour
 {
+    // PlayerPrefs keys for saving stats
+    private const string BEST_SCORE_KEY = "BestScore";
+    private const string BEST_KILLS_KEY = "BestKills";
+    private const string BEST_ROUNDS_KEY = "BestRounds";
+
     [Header("GameOver UI Elements")]
     [SerializeField] private TextMeshProUGUI gameOverText; // Text field to display all statistics
     [SerializeField] private Button restartButton; // Button to restart the game
@@ -12,16 +17,33 @@ public class GameOverUIManager : MonoBehaviour
 
     void Start()
     {
-        // Display rounds survived, kills, and score on separate lines
-        if (gameOverText != null && KillCounterManager.Instance != null)
+        // Save and display statistics
+        if (KillCounterManager.Instance != null)
         {
             int roundsSurvived = KillCounterManager.Instance.GetRoundsSurvived();
             int totalKills = KillCounterManager.Instance.GetTotalKills();
             int score = KillCounterManager.Instance.GetScore();
 
-            gameOverText.text = $"RoundsSurvived: {roundsSurvived}\n" +
-                                $"EnemiesKilled: {totalKills}\n" +
-                                $"Score: {score}";
+            // Save current game stats and update best scores
+            SaveGameStats(score, totalKills, roundsSurvived);
+
+            // Get best scores from PlayerPrefs
+            int bestScore = GetBestScore();
+            int bestKills = GetBestKills();
+            int bestRounds = GetBestRounds();
+
+            // Display current and best statistics
+            if (gameOverText != null)
+            {
+                gameOverText.text = $"Current Game:\n" +
+                                    $"Rounds Survived: {roundsSurvived}\n" +
+                                    $"Enemies Killed: {totalKills}\n" +
+                                    $"Score: {score}\n\n" +
+                                    $"Best Records:\n" +
+                                    $"Best Rounds: {bestRounds}\n" +
+                                    $"Best Kills: {bestKills}\n" +
+                                    $"Best Score: {bestScore}";
+            }
         }
 
         // Setup button listeners
@@ -34,6 +56,75 @@ public class GameOverUIManager : MonoBehaviour
         {
             mainMenuButton.onClick.AddListener(ReturnToMainMenu);
         }
+    }
+
+    /// <summary>
+    /// Saves current game stats and updates best scores if they are higher
+    /// </summary>
+    private void SaveGameStats(int score, int kills, int rounds)
+    {
+        // Update best score if current score is higher
+        int bestScore = GetBestScore();
+        if (score > bestScore)
+        {
+            PlayerPrefs.SetInt(BEST_SCORE_KEY, score);
+            Debug.Log($"New best score: {score}!");
+        }
+
+        // Update best kills if current kills are higher
+        int bestKills = GetBestKills();
+        if (kills > bestKills)
+        {
+            PlayerPrefs.SetInt(BEST_KILLS_KEY, kills);
+            Debug.Log($"New best kills: {kills}!");
+        }
+
+        // Update best rounds if current rounds are higher
+        int bestRounds = GetBestRounds();
+        if (rounds > bestRounds)
+        {
+            PlayerPrefs.SetInt(BEST_ROUNDS_KEY, rounds);
+            Debug.Log($"New best rounds: {rounds}!");
+        }
+
+        // Save PlayerPrefs
+        PlayerPrefs.Save();
+    }
+
+    /// <summary>
+    /// Gets the best score from PlayerPrefs
+    /// </summary>
+    public static int GetBestScore()
+    {
+        return PlayerPrefs.GetInt(BEST_SCORE_KEY, 0);
+    }
+
+    /// <summary>
+    /// Gets the best kills from PlayerPrefs
+    /// </summary>
+    public static int GetBestKills()
+    {
+        return PlayerPrefs.GetInt(BEST_KILLS_KEY, 0);
+    }
+
+    /// <summary>
+    /// Gets the best rounds survived from PlayerPrefs
+    /// </summary>
+    public static int GetBestRounds()
+    {
+        return PlayerPrefs.GetInt(BEST_ROUNDS_KEY, 0);
+    }
+
+    /// <summary>
+    /// Resets all best scores (useful for testing or reset functionality)
+    /// </summary>
+    public static void ResetBestScores()
+    {
+        PlayerPrefs.DeleteKey(BEST_SCORE_KEY);
+        PlayerPrefs.DeleteKey(BEST_KILLS_KEY);
+        PlayerPrefs.DeleteKey(BEST_ROUNDS_KEY);
+        PlayerPrefs.Save();
+        Debug.Log("Best scores reset!");
     }
 
     private void RestartGame()
