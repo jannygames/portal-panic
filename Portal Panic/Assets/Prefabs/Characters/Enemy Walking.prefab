@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 578066146013355391}
   - component: {fileID: 1107686346319550964}
   - component: {fileID: 6912347879581506722}
+  - component: {fileID: -4936395375056402791}
   m_Layer: 3
   m_Name: Enemy Walking
   m_TagString: Enemy
@@ -251,6 +252,29 @@ MonoBehaviour:
   damageToPlayer: 1
   agent: {fileID: 578066146013355391}
   stoppingDistance: 1.5
+--- !u!136 &-4936395375056402791
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663950880246935355}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2069428
+  m_Height: 2.1475189
+  m_Direction: 1
+  m_Center: {x: 0.010523081, y: 1.0818428, z: -0.009165764}
 --- !u!1 &769571600673350727
 GameObject:
   m_ObjectHideFlags: 0
