@@ -39,10 +39,10 @@ public class GameOverUIManager : MonoBehaviour
                                     $"Rounds Survived: {roundsSurvived}\n" +
                                     $"Enemies Killed: {totalKills}\n" +
                                     $"Score: {score}\n\n" +
-                                    $"Best Records:\n" +
-                                    $"Best Rounds: {bestRounds}\n" +
-                                    $"Best Kills: {bestKills}\n" +
-                                    $"Best Score: {bestScore}";
+                                    $"- R e c o r d s -\n" +
+                                    $"Rounds Survived: {bestRounds}\n" +
+                                    $"Enemies Killed: {bestKills}\n" +
+                                    $"Score: {bestScore}";
             }
         }
 

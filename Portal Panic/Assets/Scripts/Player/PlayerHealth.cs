@@ -21,9 +21,9 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float knockbackDuration = 0.5f; // How long knockback lasts
 
     [Header("Invincibility")]
+    [SerializeField] private float damageCooldown = 1.0f; // Time between taking damage (applies to all enemies combined)
     [SerializeField] private float invincibilityDuration = 1.0f; // Time player is invincible after taking damage
 
-    private float damageCooldown = 1.0f; // Time between health loss
     private float damageTimer = 0.0f;
     private float invincibilityTimer = 0.0f;
     private bool isInvincible = false;
@@ -90,23 +90,8 @@ public class PlayerHealth : MonoBehaviour
             }
         }
 
-        // Only check for damage if not invincible
-        if (!isInvincible)
-        {
-            damageTimer += Time.deltaTime;
-
-            // Check for nearby enemies every second
-            if (damageTimer >= damageCooldown)
-            {
-                damageTimer = 0.0f;
-
-                GameObject nearestEnemy = GetNearestEnemy();
-                if (nearestEnemy != null)
-                {
-                    TakeDamage(1, nearestEnemy.transform.position);
-                }
-            }
-        }
+        // Update damage cooldown timer
+        damageTimer -= Time.deltaTime;
     }
 
     private GameObject GetNearestEnemy()
@@ -171,8 +156,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage, Vector3 enemyPosition)
     {
-        // Don't take damage if invincible or dead
-        if (isInvincible || isDead)
+        // Don't take damage if on cooldown or dead
+        if (damageTimer > 0 || isDead)
         {
             return;
         }
@@ -189,6 +174,9 @@ public class PlayerHealth : MonoBehaviour
         // Start invincibility
         isInvincible = true;
         invincibilityTimer = invincibilityDuration;
+        
+        // Start damage cooldown (prevents multiple enemies from dealing damage simultaneously)
+        damageTimer = damageCooldown;
 
         if (currentHearts <= 0)
         {
