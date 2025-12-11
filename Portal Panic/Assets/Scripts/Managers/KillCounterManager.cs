@@ -14,8 +14,8 @@ public class KillCounterManager : MonoBehaviour
 	// --- New scoring mechanics ---
 	[Header("Scoring Settings")]
 	[SerializeField] private int basePoints = 50;          // base points per kill (lower since enemies die fast)
-	[SerializeField] private int headshotBonus = 25;       // extra points for headshots
-	[SerializeField] private int roundBonusMultiplier = 500; // bonus per round survived
+	[SerializeField] private int headshotBonus = 115;       // extra points for headshots
+	[SerializeField] private int roundBonusMultiplier = 250; // bonus per round survived
 	[SerializeField] private float comboWindow = 3f;       // time window for combo chaining
 
 	private int killStreak = 0;        // consecutive kills without damage

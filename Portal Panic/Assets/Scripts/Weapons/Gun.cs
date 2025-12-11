@@ -22,6 +22,7 @@ public class Gun : MonoBehaviour
 	[SerializeField][Range(0, 1)] private float shootSoundVolume = 1f;
 
 	[SerializeField] private PlayerHealth playerHealth;
+	[SerializeField] private AmmoManager ammoManager;
 
 	private bool wasPressed = false;
 	private AudioSource audioSource;
@@ -89,6 +90,10 @@ public class Gun : MonoBehaviour
 			Debug.Log("Gun: Player is dead, cannot shoot.");
 			return;
 		}
+
+		if (!ammoManager.CanShoot()) return;
+
+		ammoManager.ConsumeBullet();
 
 		if (bulletPrefab == null) return;
 
