@@ -298,7 +298,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1929787907488324609}
   - component: {fileID: 5487591289728943739}
-  - component: {fileID: 1830386534577556508}
   - component: {fileID: 7262838237026533724}
   - component: {fileID: 6631671279718470481}
   m_Layer: 3
@@ -349,29 +348,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!136 &1830386534577556508
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1264433200921298619}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.35
-  m_Height: 1.8
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &7262838237026533724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,12 +361,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAbstract
   health: 10
-  speed: 10
-  damageToPlayer: 1
   agent: {fileID: 0}
-  stoppingDistance: 1.5
   attackRange: 2
   attackCooldown: 1
+  lookAheadDistance: 10
+  minDistanceForLookAhead: 5
+  attackAnimationDuration: 0.8
+  damageAnimationDuration: 0.6
 --- !u!195 &6631671279718470481
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -400,7 +377,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1264433200921298619}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.35
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -409,7 +386,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1.8
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -1513,9 +1490,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1402099472164700532}
   - component: {fileID: 3341622333636880865}
+  - component: {fileID: 2762102715619234969}
   m_Layer: 3
-  m_Name: PT_Male_Skeleton_01_head
-  m_TagString: Untagged
+  m_Name: Head
+  m_TagString: Head
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1672,6 +1650,29 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.6024116, y: 0.034367606, z: 0.000000022351742}
     m_Extent: {x: 0.1661073, y: 0.13782585, z: 0.0833031}
   m_DirtyAABB: 0
+--- !u!136 &2762102715619234969
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4376934748283782849}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Height: 0.42
+  m_Direction: 1
+  m_Center: {x: 0.0000000054192384, y: 1.6330687, z: -0.01972451}
 --- !u!1 &4511925721469280685
 GameObject:
   m_ObjectHideFlags: 0
@@ -2866,6 +2867,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4050372229388042233}
   - component: {fileID: 5506202638630841178}
+  - component: {fileID: 2159081821618214583}
   m_Layer: 3
   m_Name: PT_Male_Skeleton_01_upper
   m_TagString: Untagged
@@ -3025,6 +3027,29 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.27031383, y: -0.018453911, z: 0.00000008940697}
     m_Extent: {x: 0.34137902, y: 0.1807841, z: 0.9234365}
   m_DirtyAABB: 0
+--- !u!136 &2159081821618214583
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8180005741861264218}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Height: 1.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!1 &8191305104956328230
 GameObject:
   m_ObjectHideFlags: 0

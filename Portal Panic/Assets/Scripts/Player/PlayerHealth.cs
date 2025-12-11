@@ -1,4 +1,7 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
@@ -24,7 +27,11 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float damageCooldown = 1.0f; // Time between taking damage (applies to all enemies combined)
     [SerializeField] private float invincibilityDuration = 1.0f; // Time player is invincible after taking damage
 
-    private float damageTimer = 0.0f;
+	[Header("Post Processing")]
+	[SerializeField] private Volume deathVolume; // assign your global volume
+	private ColorAdjustments colorAdjustments;
+
+	private float damageTimer = 0.0f;
     private float invincibilityTimer = 0.0f;
     private bool isInvincible = false;
 
@@ -35,7 +42,12 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        currentHearts = maxHearts; // Initialize player health
+		if (deathVolume != null)
+		{
+			deathVolume.profile.TryGet(out colorAdjustments);
+		}
+
+		currentHearts = maxHearts; // Initialize player health
         UpdateHUD(); // Update the HUD at the start
 
         // Get Character Controller component
@@ -94,7 +106,28 @@ public class PlayerHealth : MonoBehaviour
         damageTimer -= Time.deltaTime;
     }
 
-    private GameObject GetNearestEnemy()
+	public void HealOneHeart()
+	{
+		if (isDead) return; // don't heal if dead
+
+		if (currentHearts < maxHearts)
+		{
+			currentHearts++;
+			UpdateHUD();
+			Debug.Log($"Player healed by 1 heart. Current hearts: {currentHearts}/{maxHearts}");
+		}
+		else
+		{
+			Debug.Log("Player already at max hearts, no healing applied.");
+		}
+	}
+
+	public bool IsDead()
+    {
+        return isDead;
+	}
+
+	private GameObject GetNearestEnemy()
     {
         GameObject nearestEnemy = null;
         float nearestDistance = float.MaxValue;
@@ -225,12 +258,38 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         isDead = true;
-        Debug.Log("Player died! Loading GameOver scene...");
-        SceneManager.LoadScene("GameOver");
+		hudController.UpdateGameOverText("Game Over");
+        
+		Debug.Log("Player died! Loading GameOver scene...");
+        StartCoroutine(DeathSequence());
     }
 
-    // Visualize the detection radius in the Scene view (for debugging)
-    private void OnDrawGizmosSelected()
+	private IEnumerator DeathSequence()
+	{
+		// 1. Fade in Game Over text
+		hudController.StartCoroutine(hudController.FadeGameOverText());
+
+		// 2. Shift hue to red
+		float t = 0f;
+		while (t < 1f)
+		{
+			t += Time.deltaTime;
+			if (colorAdjustments != null)
+			{
+				colorAdjustments.colorFilter.value = Color.Lerp(Color.white, Color.red, t);
+			}
+			yield return null;
+		}
+
+		// 3. Wait 3 seconds
+		yield return new WaitForSeconds(3f);
+
+		// 4. Load GameOver scene
+		SceneManager.LoadScene("GameOver");
+	}
+
+	// Visualize the detection radius in the Scene view (for debugging)
+	private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, enemyDetectionRadius);

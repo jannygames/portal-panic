@@ -190,9 +190,9 @@ public class SettingsPanel : MonoBehaviour
         {
             settingsPanel.SetActive(false);
         }
-        
+
         // Also try to find and use the VRSettingsManager if available
-        VRSettingsManager settingsManager = FindObjectOfType<VRSettingsManager>();
+        VRSettingsManager settingsManager = Object.FindFirstObjectByType<VRSettingsManager>();
         if (settingsManager != null)
         {
             settingsManager.CloseSettingsPanel();
