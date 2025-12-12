@@ -134,6 +134,13 @@ public class KillCounterManager : MonoBehaviour
 				player.HealOneHeart();
 			}
 		}
+
+		AmmoManager ammo = FindFirstObjectByType<AmmoManager>();
+		if (ammo != null)
+		{
+			ammo.PickupAmmo(3); // add 3 magazines
+			Debug.Log("Player awarded 3 extra magazines for new round.");
+		}
 	}
 
 	/// <summary>

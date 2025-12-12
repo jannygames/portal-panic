@@ -7,27 +7,16 @@ using UnityEngine;
 public class EnemyPortal : MonoBehaviour
 {
 	[Header("Portal Settings")]
-	[SerializeField] private float fadeInDuration = 1f;
-	[SerializeField] private float fadeOutDuration = 1f;
 	[SerializeField] private float spawnRadius = 0f;
 
 	private Renderer portalRenderer;
-	private Material portalMaterial;
 	private PortalManager portalManager;
 	private int enemiesToSpawn = 0;
 	private bool isActive = false;
 
 	void Start()
 	{
-		// Get the renderer component
 		portalRenderer = GetComponent<Renderer>();
-		if (portalRenderer != null)
-		{
-			portalMaterial = new Material(portalRenderer.material);
-			portalRenderer.material = portalMaterial;
-		}
-
-		// Disable the portal initially
 		DisablePortalInstantly();
 	}
 
@@ -49,12 +38,9 @@ public class EnemyPortal : MonoBehaviour
 	public void SpawnEnemy()
 	{
 		if (enemiesToSpawn <= 0 || portalManager == null)
-		{
 			return;
-		}
 
 		GameObject enemyToSpawn = portalManager.SelectEnemyType();
-
 		if (enemyToSpawn == null)
 		{
 			Debug.LogWarning("EnemyPortal: No valid enemy selected to spawn!");
@@ -86,64 +72,34 @@ public class EnemyPortal : MonoBehaviour
 		portalManager.RegisterEnemySpawned();
 	}
 
-	public IEnumerator FadeInPortal()
+	public void ShowPortal()
 	{
 		isActive = true;
-		float elapsed = 0f;
-
-		while (elapsed < fadeInDuration)
-		{
-			elapsed += Time.deltaTime;
-			float alpha = Mathf.Clamp01(elapsed / fadeInDuration);
-			SetPortalAlpha(alpha);
-			yield return null;
-		}
-
-		SetPortalAlpha(1f);
+		SetPortalVisible(true);
 	}
 
-	public IEnumerator FadeOutPortal()
+	public void HidePortal()
 	{
 		isActive = false;
-		float elapsed = 0f;
-
-		while (elapsed < fadeOutDuration)
-		{
-			elapsed += Time.deltaTime;
-			float alpha = Mathf.Clamp01(1f - (elapsed / fadeOutDuration));
-			SetPortalAlpha(alpha);
-			yield return null;
-		}
-
-		SetPortalAlpha(0f);
+		SetPortalVisible(false);
 	}
 
 	public void DisablePortalInstantly()
 	{
-		SetPortalAlpha(0f);
 		isActive = false;
+		SetPortalVisible(false);
 	}
 
-	private void SetPortalAlpha(float alpha)
+	private void SetPortalVisible(bool visible)
 	{
-		if (portalMaterial != null)
-		{
-			Color color = portalMaterial.color;
-			color.a = alpha;
-			portalMaterial.color = color;
-		}
+		if (portalRenderer != null)
+			portalRenderer.enabled = visible;
 
-		// Also hide all child renderers
+		// Toggle all child renderers
 		Renderer[] childRenderers = GetComponentsInChildren<Renderer>();
 		foreach (Renderer renderer in childRenderers)
 		{
-			if (renderer == portalRenderer) continue;
-
-			Material mat = new Material(renderer.material);
-			Color c = mat.color;
-			c.a = alpha;
-			mat.color = c;
-			renderer.material = mat;
+			renderer.enabled = visible;
 		}
 	}
 

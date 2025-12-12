@@ -9,45 +9,93 @@ public class AmmoManager : MonoBehaviour
 	[SerializeField] private int numberOfMagazines = 3;
 
 	[Header("Reload Settings")]
+	[SerializeField] private InputActionProperty reloadAction; // X/Y buttons
 	[SerializeField] private AudioClip reloadSound;
 	[SerializeField] private float gunAlphaOnEmpty = 0.5f;
 
-	[Header("HUD")]
-	[SerializeField] private HUDController hud;
+	[Header("Gun & HUD")]
 	[SerializeField] private Renderer gunRenderer;
+	[SerializeField] private HUDController hud;
 
-	[Header("Pickup Settings")]
+	[Header("Ammo Pickup Settings")]
 	[SerializeField] private GameObject ammoPickupPrefab;
-	[SerializeField] private Transform playerSpawnPoint;
-	[SerializeField] private float pickupRespawnTime = 15f;
-
-	[Header("Input System")]
-	[SerializeField] private InputActionProperty reloadAction;
+	[SerializeField] private Vector3 pickupSpawnPosition;
+	[SerializeField] private float pickupRespawnTime = 30f;
 
 	private int currentBullets;
 	private int currentMagazines;
 	private GameObject activePickup;
-
 	private AudioSource audioSource;
+
+	void OnEnable()
+	{
+		// Enable reload action and subscribe
+		if (reloadAction.action != null)
+		{
+			reloadAction.action.Enable();
+			reloadAction.action.performed += OnReloadPerformed;
+		}
+	}
+
+	void OnDisable()
+	{
+		if (reloadAction.action != null)
+		{
+			reloadAction.action.performed -= OnReloadPerformed;
+			reloadAction.action.Disable();
+		}
+	}
 
 	void Start()
 	{
 		audioSource = GetComponent<AudioSource>();
 		if (audioSource == null) audioSource = gameObject.AddComponent<AudioSource>();
 
-		initialPickupPosition = playerSpawnPoint.position + Vector3.up * 1f;
-		StartCoroutine(PickupSpawner());
-
 		ResetAmmo();
 		UpdateHUD();
 		StartCoroutine(PickupSpawner());
+
+		// Optional: log which control path is bound
+		if (reloadAction.action != null)
+		{
+			Debug.Log($"AmmoManager: Reload action enabled. Bindings:");
+			foreach (var b in reloadAction.action.bindings)
+				Debug.Log($" - {b.path}");
+		}
+		else
+		{
+			Debug.LogWarning("AmmoManager: reloadAction is not assigned in Inspector.");
+		}
 	}
 
 	void Update()
 	{
-		HandleReloadInput();
+		// Backup polling if you prefer WasPressedThisFrame (works too)
+		if (reloadAction.action != null && reloadAction.action.WasPressedThisFrame())
+		{
+			TryReload();
+		}
 	}
 
+	private void OnReloadPerformed(InputAction.CallbackContext ctx)
+	{
+		TryReload();
+	}
+
+	private void TryReload()
+	{
+		// Only reload if not full and has magazines
+		if (currentBullets < bulletsPerMagazine)
+		{
+			Reload();
+		}
+		else
+		{
+			Debug.Log("AmmoManager: Magazine already full, reload ignored.");
+		}
+	}
+
+	#region Ammo Logic
 	public bool CanShoot()
 	{
 		return currentBullets > 0;
@@ -55,41 +103,33 @@ public class AmmoManager : MonoBehaviour
 
 	public void ConsumeBullet()
 	{
-		if (currentBullets > 0)
-		{
-			currentBullets--;
-			UpdateHUD();
-			if (currentBullets == 0 && gunRenderer != null)
-			{
-				SetGunAlpha(gunAlphaOnEmpty);
-			}
-		}
-	}
+		if (currentBullets <= 0) return;
 
-	private void HandleReloadInput()
-	{
-		if (reloadAction.action != null && reloadAction.action.WasPressedThisFrame() && currentBullets < bulletsPerMagazine)
-		{
-			Reload();
-		}
-	}
+		currentBullets--;
+		UpdateHUD();
 
+		if (currentBullets == 0 && gunRenderer != null)
+			SetGunAlpha(gunAlphaOnEmpty);
+	}
 
 	private void Reload()
 	{
-		if (currentMagazines <= 0) return;
+		if (currentMagazines <= 0)
+		{
+			Debug.Log("AmmoManager: No magazines left.");
+			return;
+		}
 
 		int bulletsToReload = bulletsPerMagazine - currentBullets;
 		currentBullets += bulletsToReload;
 		currentMagazines--;
 
-		if (reloadSound != null)
-		{
-			audioSource.PlayOneShot(reloadSound);
-		}
+		if (reloadSound != null) audioSource.PlayOneShot(reloadSound);
 
 		UpdateHUD();
-		SetGunAlpha(1f); // Reset gun visibility
+		SetGunAlpha(1f);
+
+		Debug.Log($"AmmoManager: Reloaded {bulletsToReload} bullets. Magazines left: {currentMagazines}");
 	}
 
 	private void SetGunAlpha(float alpha)
@@ -106,9 +146,7 @@ public class AmmoManager : MonoBehaviour
 	private void UpdateHUD()
 	{
 		if (hud != null)
-		{
 			hud.UpdateAmmoText($"{currentMagazines} | {currentBullets}");
-		}
 	}
 
 	public void ResetAmmo()
@@ -118,20 +156,20 @@ public class AmmoManager : MonoBehaviour
 		SetGunAlpha(1f);
 		UpdateHUD();
 	}
+	#endregion
 
-	#region Pickup
-	private Vector3 initialPickupPosition;
-	
-
+	#region Pickup Logic
 	private IEnumerator PickupSpawner()
 	{
 		while (true)
 		{
 			yield return new WaitForSeconds(pickupRespawnTime);
 
-			if (activePickup == null)
+			if (activePickup == null && ammoPickupPrefab != null)
 			{
-				activePickup = Instantiate(ammoPickupPrefab, initialPickupPosition, Quaternion.identity);
+				Vector3 spawnPos = pickupSpawnPosition;
+				spawnPos.y = 1f; // set Y to 1 meter above ground
+				activePickup = Instantiate(ammoPickupPrefab, spawnPos, Quaternion.identity);
 			}
 		}
 	}

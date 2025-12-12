@@ -69,11 +69,6 @@ public class PortalManager : MonoBehaviour
 		StartWave();
 	}
 
-	void Update()
-	{
-		// Handle per-frame spawn logic if needed
-	}
-
 	void StartWave()
 	{
 		if (isSpawning)
@@ -106,8 +101,11 @@ public class PortalManager : MonoBehaviour
 		// Distribute enemies among active portals
 		DistributeEnemies();
 
-		// Fade in all active portals
-		yield return StartCoroutine(FadeInPortals());
+		// Show all active portals instantly
+		foreach (EnemyPortal portal in activePortals)
+		{
+			portal.ShowPortal();
+		}
 
 		// Start spawning enemies alternately between portals
 		isSpawning = true;
@@ -121,8 +119,11 @@ public class PortalManager : MonoBehaviour
 
 		Debug.Log($"Wave {currentWave} complete!");
 
-		// Fade out portals
-		yield return StartCoroutine(FadeOutPortals());
+		// Hide portals instantly
+		foreach (EnemyPortal portal in activePortals)
+		{
+			portal.HidePortal();
+		}
 
 		isSpawning = false;
 
@@ -141,18 +142,15 @@ public class PortalManager : MonoBehaviour
 
 		if (allPortals.Count == 1)
 		{
-			// Only one portal available
 			activePortals.Add(allPortals[0]);
 		}
 		else if (allPortals.Count == 2)
 		{
-			// Two portals - use both
 			activePortals.Add(allPortals[0]);
 			activePortals.Add(allPortals[1]);
 		}
 		else
 		{
-			// Three or more portals - select 2 random ones
 			List<EnemyPortal> available = new List<EnemyPortal>(allPortals);
 
 			EnemyPortal portal1 = available[Random.Range(0, available.Count)];
@@ -193,43 +191,8 @@ public class PortalManager : MonoBehaviour
 				enemiesSpawned++;
 			}
 
-			// Move to next portal
 			portalIndex = (portalIndex + 1) % activePortals.Count;
-
-			// Wait before spawning next enemy
 			yield return new WaitForSeconds(spawnInterval);
-		}
-	}
-
-	IEnumerator FadeInPortals()
-	{
-		List<Coroutine> fadeCoroutines = new List<Coroutine>();
-
-		foreach (EnemyPortal portal in activePortals)
-		{
-			fadeCoroutines.Add(StartCoroutine(portal.FadeInPortal()));
-		}
-
-		// Wait for all fade in animations to complete
-		foreach (Coroutine coroutine in fadeCoroutines)
-		{
-			yield return coroutine;
-		}
-	}
-
-	IEnumerator FadeOutPortals()
-	{
-		List<Coroutine> fadeCoroutines = new List<Coroutine>();
-
-		foreach (EnemyPortal portal in activePortals)
-		{
-			fadeCoroutines.Add(StartCoroutine(portal.FadeOutPortal()));
-		}
-
-		// Wait for all fade out animations to complete
-		foreach (Coroutine coroutine in fadeCoroutines)
-		{
-			yield return coroutine;
 		}
 	}
 
@@ -249,7 +212,6 @@ public class PortalManager : MonoBehaviour
 			countdownTime -= 1f;
 		}
 
-		// Clear the countdown message
 		if (hudController != null)
 		{
 			hudController.UpdateNextRoundText("");
@@ -268,9 +230,7 @@ public class PortalManager : MonoBehaviour
 		}
 
 		if (totalChance <= 0f)
-		{
 			return null;
-		}
 
 		float randomValue = Random.Range(0f, totalChance);
 		float currentChance = 0f;

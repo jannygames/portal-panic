@@ -24,6 +24,9 @@ public class Gun : MonoBehaviour
 	[SerializeField] private PlayerHealth playerHealth;
 	[SerializeField] private AmmoManager ammoManager;
 
+	[SerializeField] private AudioClip emptyClickSound;
+	[SerializeField][Range(0, 1)] private float emptyClickVolume = 1f;
+
 	private bool wasPressed = false;
 	private AudioSource audioSource;
 
@@ -85,17 +88,19 @@ public class Gun : MonoBehaviour
 
 	private void Shoot()
 	{
-		if (playerHealth != null && playerHealth.IsDead())
+		if (playerHealth != null && playerHealth.IsDead()) return;
+		if (ammoManager != null && !ammoManager.CanShoot())
 		{
-			Debug.Log("Gun: Player is dead, cannot shoot.");
+			// No bullets left in current mag
+			if (emptyClickSound != null)
+			{
+				AudioSource.PlayClipAtPoint(emptyClickSound, transform.position, emptyClickVolume);
+			}
+			Debug.Log("Gun: Tried to shoot with empty magazine.");
 			return;
 		}
 
-		if (!ammoManager.CanShoot()) return;
-
 		ammoManager.ConsumeBullet();
-
-		if (bulletPrefab == null) return;
 
 		Vector3 spawnPosition = shootPoint != null ? shootPoint.position : transform.position;
 		Vector3 direction = shootPoint != null ? shootPoint.forward : transform.forward;
@@ -104,14 +109,10 @@ public class Gun : MonoBehaviour
 		GameObject bulletObj = Instantiate(bulletPrefab, spawnPosition, Quaternion.LookRotation(direction));
 		Bullet bullet = bulletObj.GetComponent<Bullet>();
 		if (bullet != null)
-		{
 			bullet.Initialize(direction, bulletSpeed, enemyLayer, ignoreLayers);
-		}
 
 		if (shootSound != null && audioSource != null)
-		{
 			audioSource.PlayOneShot(shootSound, shootSoundVolume);
-		}
 
 		if (laserLine != null && laserDisplayDuration > 0)
 		{

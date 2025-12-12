@@ -2027,6 +2027,22 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4582845616637371027, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9afdf05f669d1c9459589d6e61b43029, type: 2}
+    - target: {fileID: 6077608402545958744, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 7355182963552563757, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
+      propertyPath: m_Name
+      value: Portal_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7355182963552563757, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2623638239079224921, guid: b3505890fdb99904abcb33feb3242db1, type: 3}
       propertyPath: roundText
       value: 
@@ -2058,22 +2074,6 @@ PrefabInstance:
     - target: {fileID: 2623638239079224921, guid: b3505890fdb99904abcb33feb3242db1, type: 3}
       propertyPath: enemyTypes.Array.data[0].spawnChance
       value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4582845616637371027, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 9afdf05f669d1c9459589d6e61b43029, type: 2}
-    - target: {fileID: 6077608402545958744, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    - target: {fileID: 7355182963552563757, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
-      propertyPath: m_Name
-      value: Portal_2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7355182963552563757, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4160942506141043562, guid: b3505890fdb99904abcb33feb3242db1, type: 3}
@@ -2147,6 +2147,22 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4582845616637371027, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9afdf05f669d1c9459589d6e61b43029, type: 2}
+    - target: {fileID: 6077608402545958744, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 7355182963552563757, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
+      propertyPath: m_Name
+      value: Portal_5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7355182963552563757, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2623638239079224921, guid: b3505890fdb99904abcb33feb3242db1, type: 3}
       propertyPath: roundText
       value: 
@@ -2178,22 +2194,6 @@ PrefabInstance:
     - target: {fileID: 2623638239079224921, guid: b3505890fdb99904abcb33feb3242db1, type: 3}
       propertyPath: enemyTypes.Array.data[0].spawnChance
       value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4582845616637371027, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 9afdf05f669d1c9459589d6e61b43029, type: 2}
-    - target: {fileID: 6077608402545958744, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    - target: {fileID: 7355182963552563757, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
-      propertyPath: m_Name
-      value: Portal_5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7355182963552563757, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4160942506141043562, guid: b3505890fdb99904abcb33feb3242db1, type: 3}
@@ -2686,6 +2686,22 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4582845616637371027, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9afdf05f669d1c9459589d6e61b43029, type: 2}
+    - target: {fileID: 6077608402545958744, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 7355182963552563757, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
+      propertyPath: m_Name
+      value: Portal_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7355182963552563757, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2623638239079224921, guid: b3505890fdb99904abcb33feb3242db1, type: 3}
       propertyPath: roundText
       value: 
@@ -2717,22 +2733,6 @@ PrefabInstance:
     - target: {fileID: 2623638239079224921, guid: b3505890fdb99904abcb33feb3242db1, type: 3}
       propertyPath: enemyTypes.Array.data[0].spawnChance
       value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4582845616637371027, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 9afdf05f669d1c9459589d6e61b43029, type: 2}
-    - target: {fileID: 6077608402545958744, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    - target: {fileID: 7355182963552563757, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
-      propertyPath: m_Name
-      value: Portal_4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7355182963552563757, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4160942506141043562, guid: b3505890fdb99904abcb33feb3242db1, type: 3}
@@ -2999,6 +2999,22 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4582845616637371027, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9afdf05f669d1c9459589d6e61b43029, type: 2}
+    - target: {fileID: 6077608402545958744, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 7355182963552563757, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
+      propertyPath: m_Name
+      value: Portal_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7355182963552563757, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2623638239079224921, guid: b3505890fdb99904abcb33feb3242db1, type: 3}
       propertyPath: roundText
       value: 
@@ -3030,22 +3046,6 @@ PrefabInstance:
     - target: {fileID: 2623638239079224921, guid: b3505890fdb99904abcb33feb3242db1, type: 3}
       propertyPath: enemyTypes.Array.data[0].spawnChance
       value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4582845616637371027, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 9afdf05f669d1c9459589d6e61b43029, type: 2}
-    - target: {fileID: 6077608402545958744, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    - target: {fileID: 7355182963552563757, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
-      propertyPath: m_Name
-      value: Portal_3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7355182963552563757, guid: ec5b6c4350ecaca4eaa240d36cb34da6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4160942506141043562, guid: b3505890fdb99904abcb33feb3242db1, type: 3}

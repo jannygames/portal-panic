@@ -12,6 +12,9 @@ public class EnemyAbstract : MonoBehaviour
 	[SerializeField] private float attackAnimationDuration = 0.8f;
 	[SerializeField] private float damageAnimationDuration = 0.6f;
 
+	[SerializeField] private GameObject ammoPickupPrefab;
+	[SerializeField][Range(0f, 1f)] private float ammoDropChance = 0.1f; // 10% chance
+
 	private Animator animator;
 	private GameObject player;
 	private PlayerHealth playerHealth;
@@ -187,6 +190,15 @@ public class EnemyAbstract : MonoBehaviour
 		if (KillCounterManager.Instance != null)
 		{
 			KillCounterManager.Instance.AddKill(lastHitWasHeadshot);
+		}
+
+		// Rare ammo drop
+		if (ammoPickupPrefab != null && Random.value < ammoDropChance)
+		{
+			Vector3 spawnPos = transform.position;
+			spawnPos.y = 1f; // set Y to 1 meter above ground
+			Instantiate(ammoPickupPrefab, spawnPos, Quaternion.identity);
+			Debug.Log($"{gameObject.name} dropped an ammo magazine!");
 		}
 
 		Destroy(gameObject);
